@@ -16,9 +16,9 @@ import { NativeSelect } from '@/components/ui/native-select';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 import { cn, formatPrice } from '@/lib/utils';
-import type { CategoryDTO, ProductDTO, ProductImage } from '@/types';
+import type { ArtKind, CategoryDTO, ProductDTO, ProductImage } from '@/types';
 
-const ART_KINDS = ['laptop', 'phone', 'headphones', 'watch', 'earbuds', 'tablet', 'gamepad', 'console', 'camera', 'mouse', 'speaker', 'keyboard', 'accessories'];
+const ART_KINDS: ArtKind[] = ['laptop', 'phone', 'headphones', 'watch', 'earbuds', 'tablet', 'gamepad', 'console', 'camera', 'mouse', 'speaker', 'keyboard', 'accessories'];
 
 export function ProductForm({ product, categories }: { product?: ProductDTO | null; categories: CategoryDTO[] }) {
   const router = useRouter();
@@ -41,7 +41,7 @@ export function ProductForm({ product, categories }: { product?: ProductDTO | nu
   const [status, setStatus] = useState<ProductDTO['status']>(product?.status ?? 'active');
   const [featured, setFeatured] = useState(product?.featured ?? false);
   const [badge, setBadge] = useState(product?.badge ?? '');
-  const [art, setArt] = useState(product?.art ?? 'accessories');
+  const [art, setArt] = useState<ArtKind>(product?.art ?? 'accessories');
   const [images, setImages] = useState<ProductImage[]>(product?.images ?? []);
   const [specs, setSpecs] = useState(product?.specs?.length ? product.specs : [{ key: '', value: '' }]);
   const [tags, setTags] = useState((product?.tags ?? []).join(', '));
@@ -158,7 +158,7 @@ export function ProductForm({ product, categories }: { product?: ProductDTO | nu
                   <div className="w-16"><ProductArt kind={art} /></div>
                   <div className={cn(f, 'flex-1')}>
                     <Label htmlFor="p-art">Placeholder illustration (shown until you upload a photo)</Label>
-                    <NativeSelect id="p-art" value={art} onChange={(e) => setArt(e.target.value)} className="h-10">
+                    <NativeSelect id="p-art" value={art} onChange={(e) => setArt(e.target.value as ArtKind)} className="h-10">
                       {ART_KINDS.map((k) => <option key={k} value={k}>{k}</option>)}
                     </NativeSelect>
                   </div>
