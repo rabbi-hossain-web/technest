@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Taka sign (৳, U+09F3). Inter and Poppins have no glyph for it, so browsers fell back
+ * to a thin system Bengali font. These rules add a 1 KB variable-weight ৳ (subset of
+ * Noto Sans Bengali, OFL) *into* those families via unicode-range, so every price,
+ * label and input gets a ৳ that matches the surrounding weight.
+ */
+@font-face { font-family: 'Inter Variable'; src: url('./fonts/taka.woff2') format('woff2'); font-weight: 100 900; font-display: swap; unicode-range: U+09F3; }
+@font-face { font-family: 'Inter'; src: url('./fonts/taka.woff2') format('woff2'); font-weight: 100 900; font-display: swap; unicode-range: U+09F3; }
+@font-face { font-family: 'Poppins'; src: url('./fonts/taka.woff2') format('woff2'); font-weight: 100 900; font-display: swap; unicode-range: U+09F3; }
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 215 81% 48%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 214 47% 97%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 214 47% 97%;
+    --muted-foreground: 215 18% 43%;
+    --accent: 214 89% 95%;
+    --accent-foreground: 216 80% 30%;
+    --destructive: 0 72% 42%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 217 33% 92%;
+    --input: 214 27% 84%;
+    --ring: 215 81% 48%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+  }
+  h1, h2, h3 {
+    @apply font-display;
+  }
+}
